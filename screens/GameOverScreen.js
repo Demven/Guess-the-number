@@ -1,0 +1,8 @@
+import { Text, StyleSheet } from 'react-native';
+
+export default function GameOverScreen () {
+  return (
+    <Text>Game is Over!</Text>
+  );
+}
+

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { TextInput, View, Alert, StyleSheet } from 'react-native';
 import PrimaryButton from '../components/PrimaryButton';
+import colors from '../constants/colors'
 
-export default function StartGameScreen () {
+export default function StartGameScreen ({ onStartGame }) {
   const [number, setNumber] = useState('');
 
   function onReset () {
@@ -18,11 +19,9 @@ export default function StartGameScreen () {
         'Number has to be between 1 and 99',
         [{ text: 'Okay', style: 'destructive', onPress: onReset }],
       );
-
-      return;
+    } else {
+      onStartGame(number);
     }
-
-    console.info('Valid number');
   }
 
   return (
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
     marginHorizontal: 24,
     padding: 16,
-    backgroundColor: '#4e0329',
+    backgroundColor: colors.primary800,
     borderRadius: 8,
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 4 },
@@ -72,8 +71,8 @@ const styles = StyleSheet.create({
     fontSize: 32,
     textAlign: 'center',
     borderBottomWidth: 2,
-    borderBottomColor: '#ddb52f',
-    color: '#ddb52f',
+    borderBottomColor: colors.accent500,
+    color: colors.accent500,
   },
   buttons: {
     flexDirection: 'row',
