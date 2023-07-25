@@ -1,7 +1,15 @@
 import { useState } from 'react';
-import { TextInput, View, Alert, StyleSheet } from 'react-native';
-import PrimaryButton from '../components/PrimaryButton';
-import colors from '../constants/colors'
+import {
+  TextInput,
+  View,
+  Alert,
+  StyleSheet,
+} from 'react-native';
+import PrimaryButton from '../../components/PrimaryButton';
+import Title from '../../components/Title';
+import Card from '../../components/Card';
+import InstructionText from './InstructionText';
+import colors from '../../constants/colors'
 
 export default function StartGameScreen ({ onStartGame }) {
   const [number, setNumber] = useState('');
@@ -26,42 +34,40 @@ export default function StartGameScreen ({ onStartGame }) {
 
   return (
     <View style={styles.startGameScreen}>
-      <TextInput
-        style={styles.numberInput}
-        maxLength={2}
-        keyboardType='number-pad'
-        autoCapitalize='none'
-        autoCorrect={false}
-        onChangeText={setNumber}
-        value={number}
-      />
+      <Title>Guess the Number</Title>
 
-      <View style={styles.buttons}>
-        <View style={styles.button}>
-          <PrimaryButton onPress={onReset}>Reset</PrimaryButton>
-        </View>
+      <Card>
+        <InstructionText>Enter a Number</InstructionText>
 
-        <View style={styles.button}>
-          <PrimaryButton onPress={onConfirm}>Confirm</PrimaryButton>
+        <TextInput
+          style={styles.numberInput}
+          maxLength={2}
+          keyboardType='number-pad'
+          autoCapitalize='none'
+          autoCorrect={false}
+          onChangeText={setNumber}
+          value={number}
+        />
+
+        <View style={styles.buttons}>
+          <View style={styles.button}>
+            <PrimaryButton onPress={onReset}>Reset</PrimaryButton>
+          </View>
+
+          <View style={styles.button}>
+            <PrimaryButton onPress={onConfirm}>Confirm</PrimaryButton>
+          </View>
         </View>
-      </View>
+      </Card>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   startGameScreen: {
-    justifyContent: 'center',
-    alignItems: 'center',
     marginTop: 100,
-    marginHorizontal: 24,
-    padding: 16,
-    backgroundColor: colors.primary800,
-    borderRadius: 8,
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 8,
-    shadowOpacity: 0.25,
+    flexGrow: 1,
+    alignItems: 'center',
   },
   numberInput: {
     width: 50,
