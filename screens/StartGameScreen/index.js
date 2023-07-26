@@ -4,6 +4,9 @@ import {
   View,
   Alert,
   StyleSheet,
+  ScrollView,
+  useWindowDimensions,
+  KeyboardAvoidingView,
 } from 'react-native';
 import PrimaryButton from '../../components/PrimaryButton';
 import Title from '../../components/Title';
@@ -13,6 +16,8 @@ import colors from '../../constants/colors'
 
 export default function StartGameScreen ({ onStartGame }) {
   const [number, setNumber] = useState('');
+
+  const { height } = useWindowDimensions();
 
   function onReset () {
     setNumber('');
@@ -33,39 +38,50 @@ export default function StartGameScreen ({ onStartGame }) {
   }
 
   return (
-    <View style={styles.startGameScreen}>
-      <Title>Guess the Number</Title>
+    <ScrollView style={{ flexGrow: 1 }}>
+      <KeyboardAvoidingView
+        style={{ flexGrow: 1 }}
+        behavior='position'
+      >
+        <View
+          style={[
+            styles.startGameScreen,
+            { marginTop: height < 380 ? 30 : 100 }
+          ]}
+        >
+          <Title>Guess the Number</Title>
 
-      <Card>
-        <InstructionText>Enter a Number</InstructionText>
+          <Card>
+            <InstructionText>Enter a Number</InstructionText>
 
-        <TextInput
-          style={styles.numberInput}
-          maxLength={2}
-          keyboardType='number-pad'
-          autoCapitalize='none'
-          autoCorrect={false}
-          onChangeText={setNumber}
-          value={number}
-        />
+            <TextInput
+              style={styles.numberInput}
+              maxLength={2}
+              keyboardType='number-pad'
+              autoCapitalize='none'
+              autoCorrect={false}
+              onChangeText={setNumber}
+              value={number}
+            />
 
-        <View style={styles.buttons}>
-          <View style={styles.button}>
-            <PrimaryButton onPress={onReset}>Reset</PrimaryButton>
-          </View>
+            <View style={styles.buttons}>
+              <View style={styles.button}>
+                <PrimaryButton onPress={onReset}>Reset</PrimaryButton>
+              </View>
 
-          <View style={styles.button}>
-            <PrimaryButton onPress={onConfirm}>Confirm</PrimaryButton>
-          </View>
+              <View style={styles.button}>
+                <PrimaryButton onPress={onConfirm}>Confirm</PrimaryButton>
+              </View>
+            </View>
+          </Card>
         </View>
-      </Card>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   startGameScreen: {
-    marginTop: 100,
     flexGrow: 1,
     alignItems: 'center',
   },
